@@ -24,11 +24,8 @@ func ReadByColumns(filename string) [][]int {
 		line := scanner.Text()
 		fields := strings.Fields(line) // Split line into fields based on whitespace
 
-		// Ensure the columns slice can hold the required number of columns
-		if len(columns) < len(fields) {
-			for i := len(columns); i < len(fields); i++ {
-				columns = append(columns, []int{})
-			}
+		for i := len(columns); i < len(fields); i++ {
+			columns = append(columns, []int{})
 		}
 
 		// Convert each field to an integer and append it to the corresponding column
@@ -40,12 +37,6 @@ func ReadByColumns(filename string) [][]int {
 			}
 			columns[i] = append(columns[i], num)
 		}
-	}
-
-	// Check for scanner errors
-	if err := scanner.Err(); err != nil {
-		fmt.Printf("Error reading file: %v\n", err)
-		return nil
 	}
 
 	return columns

@@ -32,11 +32,7 @@ func secondPart() int {
 	col2dict := make(map[int]int)
 
 	for i := 0; i < len(col2); i++ {
-		if _, exists := col2dict[col2[i]]; exists {
-			col2dict[col2[i]]++
-		} else {
-			col2dict[col2[i]] = 1
-		}
+		col2dict[col2[i]]++
 	}
 
 	for i := 0; i < len(col1); i++ {
