@@ -51,25 +51,7 @@ func checkStableLevelChange(levels []int, damper bool) int {
 
 				if damper == true {
 					damper = false
-
-					damperStability1 := 0
-					damperStability2 := 0
-					damperStability3 := 0
-
-					levels1 := removeElement(levels, i-1)
-					damperStability1 += checkStableLevelChange(levels1, false) + checkLevelDifference(levels1, false)
-
-					levels2 := removeElement(levels, i)
-					damperStability2 += checkStableLevelChange(levels2, false) + checkLevelDifference(levels2, false)
-
-					levels3 := removeElement(levels, i+1)
-					damperStability3 += checkStableLevelChange(levels3, false) + checkLevelDifference(levels3, false)
-
-					if damperStability1*damperStability2*damperStability3 != 0 {
-						return 100
-					}
-
-					return 0
+					return dampLevels(levels, i)
 				}
 			}
 		}
@@ -84,32 +66,36 @@ func checkLevelDifference(levels []int, damper bool) int {
 			levelChange := int(math.Abs(float64(levels[i] - levels[i+1])))
 			if levelChange < 1 || levelChange > 3 {
 				errorCounter++
+
 				if damper == true {
 					damper = false
-
-					damperStability1 := 0
-					damperStability2 := 0
-					damperStability3 := 0
-
-					levels1 := removeElement(levels, i-1)
-					damperStability1 += checkStableLevelChange(levels1, false) + checkLevelDifference(levels1, false)
-
-					levels2 := removeElement(levels, i)
-					damperStability2 += checkStableLevelChange(levels2, false) + checkLevelDifference(levels2, false)
-
-					levels3 := removeElement(levels, i+1)
-					damperStability3 += checkStableLevelChange(levels3, false) + checkLevelDifference(levels3, false)
-
-					if damperStability1*damperStability2*damperStability3 != 0 {
-						return 100
-					}
-
-					return 0
+					return dampLevels(levels, i)
 				}
 			}
 		}
 	}
 	return errorCounter
+}
+
+func dampLevels(levels []int, index int) int {
+	damperStability1 := 0
+	damperStability2 := 0
+	damperStability3 := 0
+
+	levels1 := removeElement(levels, index-1)
+	damperStability1 += checkStableLevelChange(levels1, false) + checkLevelDifference(levels1, false)
+
+	levels2 := removeElement(levels, index)
+	damperStability2 += checkStableLevelChange(levels2, false) + checkLevelDifference(levels2, false)
+
+	levels3 := removeElement(levels, index+1)
+	damperStability3 += checkStableLevelChange(levels3, false) + checkLevelDifference(levels3, false)
+
+	if damperStability1*damperStability2*damperStability3 != 0 {
+		return 100
+	}
+
+	return 0
 }
 
 func removeElement(levels []int, index int) []int {
