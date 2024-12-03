@@ -7,7 +7,7 @@ import (
 	"sort"
 )
 
-var inputs = file_manager.ReadByColumns("input.txt")
+var inputs = file_manager.ReadByColumns("day_1_Historian_Hysteria/input.txt")
 var col1 = inputs[0]
 var col2 = inputs[1]
 
