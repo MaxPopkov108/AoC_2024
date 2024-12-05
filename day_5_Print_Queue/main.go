@@ -77,7 +77,7 @@ func solution(file *os.File) (int, int) {
 }
 
 func main() {
-	file, err := os.Open("day_4_Print_Queue/test_input.txt")
+	file, err := os.Open("day_5_Print_Queue/test_input.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
